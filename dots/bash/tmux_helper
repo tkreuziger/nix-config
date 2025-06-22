@@ -1,0 +1,12 @@
+#!/bin/bash
+
+folder=$(pwd | sed "s/.*\///g")
+
+if tmux ls | grep -q "$folder"; then
+    echo "Session already exists, attaching..."
+    tmux attach -t $folder
+else
+    echo "Starting new session..."
+    tmux new -s $folder
+fi
+

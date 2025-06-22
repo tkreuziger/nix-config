@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
+
+if [ -z "$sessions" ]; then
+    exit 1
+fi
+
+selected=$(echo "$sessions" | dmenu -i -l 10 -c -p "Select session:")
+
+if [ -n "$selected" ]; then
+    tmux attach-session -t "$selected"
+fi

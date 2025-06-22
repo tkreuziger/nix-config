@@ -1,0 +1,14 @@
+#!/bin/bash
+
+file="$1"
+line="$2"
+
+start=$(( line > 15 ? line - 15 : 1 ))
+end=$(( start + 30 ))
+
+if command -v bat &> /dev/null; then
+    bat --style=numbers --color=always --highlight-line "$line" \
+        --line-range "$start:$end" "$file"
+else
+    cat "$file"
+fi

@@ -1,0 +1,1 @@
+desktop: light-dm, slick-greeter, i3, nautilus, dunst,

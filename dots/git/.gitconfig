@@ -1,0 +1,32 @@
+[core]
+    pager = delta
+
+[user]
+    name = "Tristan Kreuziger"
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    dark = true
+    side-by-side = true
+    line-numbers = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[commit]
+	gpgsign = true
+
+[init]
+	defaultBranch = main
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[pull]
+	rebase = true
