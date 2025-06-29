@@ -14,6 +14,8 @@
     delta
     yazi
 
+    pass
+
     tdf
     flameshot
     haskellPackages.greenclip
