@@ -8,9 +8,12 @@ $os\
 $directory\
 [](bg:yellow fg:red)\
 $git_branch\
+[](fg:yellow bg:mauve)\
 $git_status\
 $git_metrics\
-[](fg:yellow bg:green)\
+[](fg:mauve bg:pink)\
+$direnv\
+[](fg:pink bg:green)\
 $c\
 $rust\
 $golang\
@@ -30,7 +33,6 @@ $time\
 ╰─$character"""
 
 add_newline = true
-continuation_prompt = "[▸▹ ](dimmed white)"
 palette = 'catppuccin_mocha'
 
 [os]
@@ -77,14 +79,24 @@ style = "bg:yellow"
 format = '[ [$symbol $branch(:$remote_branch) ](fg:crust bg:yellow)]($style)'
 
 [git_status]
-style = "bg:yellow"
-format = '[ [($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+style = "bg:mauve"
+format = '[ [($all_status$ahead_behind)](fg:crust bg:mauve)]($style)'
 
 [git_metrics]
-added_style = "fg:crust bg:yellow"
-deleted_style = "fg:crust bg:yellow"
+added_style = "fg:crust bg:mauve"
+deleted_style = "fg:crust bg:mauve"
 format = "[+$added]($added_style)[-$deleted ]($deleted_style)"
 disabled = false
+
+[direnv]
+disabled = false
+symbol = "env"
+format = '[ $symbol $loaded$allowed ](fg:crust bg:pink)'
+loaded_msg = ""
+unloaded_msg = ""
+allowed_msg = ""
+not_allowed_msg = ""
+denied_msg = ""
 
 [nodejs]
 symbol = ""
@@ -129,7 +141,7 @@ format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 [python]
 symbol = ""
 style = "bg:green"
-format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:crust bg:green)]($style)'
+format = '[[ $symbol( $version)(\($virtualenv\)) ](fg:crust bg:green)]($style)'
 
 [docker_context]
 symbol = ""
@@ -161,7 +173,7 @@ vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
 [cmd_duration]
-show_milliseconds = true
+show_milliseconds = false
 style = "fg:crust bg:lavender"
 format = "[ $duration ]($style)"
 disabled = false

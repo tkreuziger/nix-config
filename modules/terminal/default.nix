@@ -33,5 +33,11 @@
       ];
       extraConfig = builtins.readFile ../../dots/tmux/custom.tmux.conf;
     };
+
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }
