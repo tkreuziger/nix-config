@@ -1,0 +1,63 @@
+general {
+        colors = true
+        interval = 1
+        color_good = "#50FA7B"
+        color_bad = "#FF5555"
+        color_degraded = "#F1FA8C"
+}
+
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "volume master"
+order += "tztime local"
+
+wireless _first_ {
+        format_up = "📶 %quality %essid %ip"
+        format_down = "📶 down"
+}
+
+ethernet _first_ {
+        format_up = "🔌 %ip (%speed)"
+        format_down = "🔌 down"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+        format_down = "No battery"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "?"
+        status_full = "🔋"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+disk "/" {
+        format = "💾 %avail"
+}
+
+load {
+        format = "⚡ %1min"
+}
+
+memory {
+        format = "🧠 %used | %available"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+volume master {
+        format = "🔊 %volume"
+        format_muted = "🔇 muted (%volume)"
+        device = "pulse"
+}
+
+tztime local {
+        format = "📅 %Y-%m-%d 🕐 %H:%M:%S"
+}
+
+

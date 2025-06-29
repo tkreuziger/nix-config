@@ -14,10 +14,10 @@ fi
 # Bat
 if command -v bat &> /dev/null; then
     alias ccat='cat'
-    alias cat='bat --paging=never'
+    alias cat='bat --paging=never --theme="Catppuccin Mocha"'
     alias ccat='command cat'
 
-    export BAT_THEME="TwoDark"
+    export BAT_THEME="Catppuccin Mocha"
     export BAT_STYLE="numbers,changes,header"
 fi
 

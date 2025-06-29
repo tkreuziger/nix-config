@@ -1,0 +1,141 @@
+#                                 
+
+palette = "catppuccin_mocha"
+
+format = """
+╭─[](fg:blue bg:#000000)\
+$directory\
+$git_branch\
+$git_status\
+$git_metrics\
+$fill\
+$python\
+$nodejs\
+$cmd_duration\
+$time
+╰─$character
+"""
+
+[directory]
+truncate_to_repo = false
+style = "fg:#000000 bg:blue"
+format = "[ ﱮ $path ]($style)[](fg:blue)"
+disabled = false
+
+[git_branch]
+symbol = ""
+style = "fg:base bg:teal"
+format = "\b[ ](fg:blue bg:teal)[$symbol $branch(:$remote_branch) ]($style)"
+disabled = false
+
+[git_status]
+style = "fg:base bg:teal"
+format = "\b[ $all_status$ahead_behind ]($style)[](fg:teal)"
+disabled = false
+
+[git_metrics]
+added_style = "fg:base bg:sapphire"
+deleted_style = "fg:base bg:sapphire"
+format = "(\b[ ](fg:teal bg:sapphire)[+$added]($added_style)[-$deleted ]($deleted_style)[](fg:sapphire))"
+disabled = false
+
+# Start languages and tools #
+
+[python]
+symbol = ''
+style = "fg:base bg:yellow"
+format = "[ $symbol ($version) ]($style)"
+disabled = false
+
+[nodejs]
+symbol = ""
+style = "fg:base bg:green"
+format = "[ $symbol ($version) ]($style)"
+disabled = false
+
+[time]
+style = "fg:base bg:flamingo"
+disabled = false
+time_format = "%H:%M:%S"
+format = '[  $time ]($style)[](fg:flamingo)'
+
+[cmd_duration]
+style = "fg:#000000 bg:lavender"
+format = "[ $duration ]($style)"
+min_time = 3_000
+
+[c]
+symbol = ""
+style = "fg:#ffffff bg:#840a2c"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[golang]
+symbol = ""
+style = "fg:#ffffff bg:#007d9c"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[java]
+symbol = ""
+style = "fg:#ffffff bg:#007396"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[lua]
+symbol = ""
+style = "fg:#ffffff bg:#000080"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[package]
+symbol = ""
+style = "fg:#ffffff bg:#cb3837"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[php]
+symbol = ''
+style = "fg:#ffffff bg:#4F5B93"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+[rust]
+symbol = ""
+style = "fg:#ffffff bg:#a72145"
+format = '[ $symbol ($version) ]($style)'
+disabled = false
+
+# End languages and tools #
+
+[character]
+disabled = false
+format = "$symbol "
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"

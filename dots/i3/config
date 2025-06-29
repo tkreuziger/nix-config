@@ -1,0 +1,528 @@
+# Set mod key (Mod4 = Super/Windows key)
+set $mod Mod4
+
+# Font for window titles and bar
+font pango:Source Code Pro 10
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Colors
+set $bg-color            #2f343f
+set $inactive-bg-color   #2f343f
+set $text-color          #f3f4f5
+set $inactive-text-color #676e7d
+set $urgent-bg-color     #e53935
+set $indicator-color     #a0a0a0
+
+# Window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          $indicator-color
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color
+
+# Disable window titlebars
+for_window [class="^.*"] border pixel 2
+
+# Gaps
+gaps inner 8
+gaps outer 0
+
+# Only enable gaps on a workspace when there is at least one container
+smart_gaps on
+
+# Key bindings
+# Terminal
+bindsym $mod+Return exec kitty
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Application launcher
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/regolith.rasi
+
+# File manager
+bindsym $mod+Shift+Return exec nautilus
+
+# Lock screen
+bindsym $mod+Escape exec --no-startup-id i3lock -c 000000
+
+# Window navigation
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+b split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# Exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Resize window mode
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Volume controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# Start i3bar
+bar {
+    status_command i3status -c ~/.config/i3status/config
+    position top
+
+    colors {
+        background $bg-color
+        separator #757575
+        #                  border             background         text
+        focused_workspace  $bg-color          $bg-color          $text-color
+        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+        active_workspace   $inactive-bg-color $inactive-bg-color $inactive-text-color
+        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+    }
+}
+
+# Autostart applications
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+exec --no-startup-id dunst
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+
+# Set wallpaper
+# exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
+
+---
+
+# ~/.config/i3status/config
+# i3status configuration file
+
+general {
+        colors = true
+        interval = 1
+        color_good = "#50FA7B"
+        color_bad = "#FF5555"
+        color_degraded = "#F1FA8C"
+}
+
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "volume master"
+order += "tztime local"
+
+wireless _first_ {
+        format_up = "📶 %quality %essid %ip"
+        format_down = "📶 down"
+}
+
+ethernet _first_ {
+        format_up = "🔌 %ip (%speed)"
+        format_down = "🔌 down"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+        format_down = "No battery"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "?"
+        status_full = "🔋"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+disk "/" {
+        format = "💾 %avail"
+}
+
+load {
+        format = "⚡ %1min"
+}
+
+memory {
+        format = "🧠 %used | %available"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+volume master {
+        format = "🔊 %volume"
+        format_muted = "🔇 muted (%volume)"
+        device = "pulse"
+}
+
+tztime local {
+        format = "📅 %Y-%m-%d 🕐 %H:%M:%S"
+}
+
+---
+
+# ~/.config/rofi/regolith.rasi
+# Rofi theme for Regolith-like appearance
+
+* {
+    bg-col: #2f343f;
+    bg-col-light: #3c414c;
+    border-col: #3c414c;
+    selected-col: #50fa7b;
+    blue: #50fa7b;
+    fg-col: #f3f4f5;
+    fg-col2: #e6e6e6;
+    grey: #676e7d;
+
+    width: 600;
+    font: "Source Code Pro 12";
+}
+
+element-text, element-icon , mode-switcher {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+window {
+    height: 360px;
+    border: 2px;
+    border-color: @border-col;
+    background-color: @bg-col;
+}
+
+mainbox {
+    background-color: @bg-col;
+}
+
+inputbar {
+    children: [prompt,entry];
+    background-color: @bg-col;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+prompt {
+    background-color: @blue;
+    padding: 6px;
+    text-color: @bg-col;
+    border-radius: 3px;
+    margin: 20px 0px 0px 20px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 6px;
+    margin: 20px 0px 0px 10px;
+    text-color: @fg-col;
+    background-color: @bg-col;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    margin: 10px 0px 0px 20px;
+    columns: 1;
+    lines: 5;
+    background-color: @bg-col;
+}
+
+element {
+    padding: 5px;
+    background-color: @bg-col;
+    text-color: @fg-col;
+}
+
+element-icon {
+    size: 25px;
+}
+
+element selected {
+    background-color: @selected-col;
+    text-color: @bg-col;
+}
+
+mode-switcher {
+    spacing: 0;
+}
+
+button {
+    padding: 10px;
+    background-color: @bg-col-light;
+    text-color: @grey;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+button selected {
+    background-color: @bg-col;
+    text-color: @blue;
+}
+
+---
+
+# ~/.config/dunst/dunstrc
+# Dunst notification daemon configuration
+
+[global]
+    monitor = 0
+    follow = mouse
+    geometry = "300x5-30+20"
+    indicate_hidden = yes
+    shrink = no
+    transparency = 10
+    notification_height = 0
+    separator_height = 2
+    padding = 8
+    horizontal_padding = 8
+    frame_width = 2
+    frame_color = "#3c414c"
+    separator_color = frame
+    sort = yes
+    idle_threshold = 120
+    font = Source Code Pro 10
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    icon_position = left
+    min_icon_size = 0
+    max_icon_size = 32
+    sticky_history = yes
+    history_length = 20
+    dmenu = /usr/bin/rofi -dmenu -p dunst:
+    browser = /usr/bin/firefox -new-tab
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    startup_notification = false
+    verbosity = mesg
+    corner_radius = 5
+    ignore_dbusclose = false
+    force_xinerama = false
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[experimental]
+    per_monitor_dpi = false
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+    history = ctrl+grave
+    context = ctrl+shift+period
+
+[urgency_low]
+    background = "#2f343f"
+    foreground = "#f3f4f5"
+    timeout = 10
+
+[urgency_normal]
+    background = "#2f343f"
+    foreground = "#f3f4f5"
+    timeout = 10
+
+[urgency_critical]
+    background = "#e53935"
+    foreground = "#f3f4f5"
+    frame_color = "#e53935"
+    timeout = 0
+
+---
+
+# ~/.config/picom/picom.conf
+# Picom compositor configuration
+
+# Shadow
+shadow = true;
+shadow-radius = 7;
+shadow-offset-x = -7;
+shadow-offset-y = -7;
+shadow-opacity = 0.7;
+
+shadow-exclude = [
+  "name = 'Notification'",
+  "class_g = 'Conky'",
+  "class_g ?= 'Notify-osd'",
+  "class_g = 'Cairo-clock'",
+  "_GTK_FRAME_EXTENTS@:c"
+];
+
+# Fading
+fading = true;
+fade-in-step = 0.03;
+fade-out-step = 0.03;
+
+# Transparency/Opacity
+inactive-opacity = 0.95;
+frame-opacity = 0.9;
+inactive-opacity-override = false;
+
+opacity-rule = [
+  "100:class_g = 'firefox'",
+  "100:class_g = 'Chromium'",
+  "95:class_g = 'kitty'",
+  "95:class_g = 'Code'"
+];
+
+# Background-Blurring
+blur-background = false;
+
+# Other
+backend = "glx";
+vsync = true;
+mark-wmwin-focused = true;
+mark-ovredir-focused = true;
+detect-rounded-corners = true;
+detect-client-opacity = true;
+refresh-rate = 0;
+detect-transient = true;
+detect-client-leader = true;
+use-damage = true;
+
+# Window type settings
+wintypes:
+{
+  tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; full-shadow = false; };
+  dock = { shadow = false; }
+  dnd = { shadow = false; }
+  popup_menu = { opacity = 0.8; }
+  dropdown_menu = { opacity = 0.8; }
+};
+
+---
+
+# Setup Instructions:
+
+# 1. Create the directories:
+mkdir -p ~/.config/i3
+mkdir -p ~/.config/i3status
+mkdir -p ~/.config/rofi
+mkdir -p ~/.config/dunst
+mkdir -p ~/.config/picom
+
+# 2. Install required packages (Arch Linux):
+sudo pacman -S i3-wm i3status i3lock rofi dunst picom kitty nautilus brightnessctl maim xss-lock nm-applet
+
+# 3. Optional: Install additional fonts
+sudo pacman -S ttf-sourcecodepro-nerd
+
+# 4. Copy the configuration files to their respective locations as shown above
+
+# 5. To start i3, add this to your display manager or .xinitrc:
+echo "exec i3" >> ~/.xinitrc
+
+# 6. Restart your session or run: startx

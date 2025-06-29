@@ -3,8 +3,11 @@
 {
   home.packages = with pkgs; [
     # i3
+    # i3status
+    # picom
     # nautilus
     # dunst
+
     dmenu
     rofi
   ];

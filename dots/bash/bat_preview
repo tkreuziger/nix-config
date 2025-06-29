@@ -8,7 +8,7 @@ end=$(( start + 30 ))
 
 if command -v bat &> /dev/null; then
     bat --style=numbers --color=always --highlight-line "$line" \
-        --line-range "$start:$end" "$file"
+        --line-range "$start:$end" "$file" --theme="Catppuccin Mocha"
 else
     cat "$file"
 fi

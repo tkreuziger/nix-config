@@ -1,7 +1,11 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
+    which
+
     fd
     ripgrep
     fzf
@@ -10,6 +14,7 @@
     delta
     yazi
 
+    tdf
     flameshot
     haskellPackages.greenclip
   ];
