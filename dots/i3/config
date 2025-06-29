@@ -8,6 +8,33 @@ font pango:Source Code Pro 10
 floating_modifier $mod
 
 # Colors
+set $rosewater #f5e0dc
+set $flamingo #f2cdcd
+set $pink #f5c2e7
+set $mauve #cba6f7
+set $red #f38ba8
+set $maroon #eba0ac
+set $peach #fab387
+set $yellow #f9e2af
+set $green #a6e3a1
+set $teal #94e2d5
+set $sky #89dceb
+set $sapphire #74c7ec
+set $blue #89b4fa
+set $lavender #b4befe
+set $text #cdd6f4
+set $subtext1 #bac2de
+set $subtext0 #a6adc8
+set $overlay2 #9399b2
+set $overlay1 #7f849c
+set $overlay0 #6c7086
+set $surface2 #585b70
+set $surface1 #45475a
+set $surface0 #313244
+set $base #1e1e2e
+set $mantle #181825
+set $crust #11111b
+
 set $bg-color            #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
@@ -15,12 +42,32 @@ set $inactive-text-color #676e7d
 set $urgent-bg-color     #e53935
 set $indicator-color     #a0a0a0
 
-# Window colors
-#                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          $indicator-color
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# bar
+bar {
+  status_command i3status -c ~/.config/i3status/config
+  position top
+
+  colors {
+    background         $base
+    statusline         $text
+    focused_statusline $text
+    focused_separator  $base
+
+    # target           border bg        text
+    focused_workspace  $base  $mauve    $crust
+    active_workspace   $base  $surface2 $text
+    inactive_workspace $base  $base     $text
+    urgent_workspace   $base  $red      $crust
+  }
+}
 
 # Disable window titlebars
 for_window [class="^.*"] border pixel 2
@@ -156,6 +203,7 @@ mode "resize" {
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
 }
+
 bindsym $mod+r mode "resize"
 
 # Volume controls
@@ -167,22 +215,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
-# Start i3bar
-bar {
-    status_command i3status -c ~/.config/i3status/config
-    position top
-
-    colors {
-        background $bg-color
-        separator #757575
-        #                  border             background         text
-        focused_workspace  $bg-color          $bg-color          $text-color
-        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        active_workspace   $inactive-bg-color $inactive-bg-color $inactive-text-color
-        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-    }
-}
-
 # Autostart applications
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -192,337 +224,3 @@ exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Set wallpaper
 # exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
-
----
-
-# ~/.config/i3status/config
-# i3status configuration file
-
-general {
-        colors = true
-        interval = 1
-        color_good = "#50FA7B"
-        color_bad = "#FF5555"
-        color_degraded = "#F1FA8C"
-}
-
-order += "wireless _first_"
-order += "ethernet _first_"
-order += "battery all"
-order += "disk /"
-order += "load"
-order += "memory"
-order += "volume master"
-order += "tztime local"
-
-wireless _first_ {
-        format_up = "📶 %quality %essid %ip"
-        format_down = "📶 down"
-}
-
-ethernet _first_ {
-        format_up = "🔌 %ip (%speed)"
-        format_down = "🔌 down"
-}
-
-battery all {
-        format = "%status %percentage %remaining"
-        format_down = "No battery"
-        status_chr = "⚡"
-        status_bat = "🔋"
-        status_unk = "?"
-        status_full = "🔋"
-        path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
-}
-
-disk "/" {
-        format = "💾 %avail"
-}
-
-load {
-        format = "⚡ %1min"
-}
-
-memory {
-        format = "🧠 %used | %available"
-        threshold_degraded = "1G"
-        format_degraded = "MEMORY < %available"
-}
-
-volume master {
-        format = "🔊 %volume"
-        format_muted = "🔇 muted (%volume)"
-        device = "pulse"
-}
-
-tztime local {
-        format = "📅 %Y-%m-%d 🕐 %H:%M:%S"
-}
-
----
-
-# ~/.config/rofi/regolith.rasi
-# Rofi theme for Regolith-like appearance
-
-* {
-    bg-col: #2f343f;
-    bg-col-light: #3c414c;
-    border-col: #3c414c;
-    selected-col: #50fa7b;
-    blue: #50fa7b;
-    fg-col: #f3f4f5;
-    fg-col2: #e6e6e6;
-    grey: #676e7d;
-
-    width: 600;
-    font: "Source Code Pro 12";
-}
-
-element-text, element-icon , mode-switcher {
-    background-color: inherit;
-    text-color: inherit;
-}
-
-window {
-    height: 360px;
-    border: 2px;
-    border-color: @border-col;
-    background-color: @bg-col;
-}
-
-mainbox {
-    background-color: @bg-col;
-}
-
-inputbar {
-    children: [prompt,entry];
-    background-color: @bg-col;
-    border-radius: 5px;
-    padding: 2px;
-}
-
-prompt {
-    background-color: @blue;
-    padding: 6px;
-    text-color: @bg-col;
-    border-radius: 3px;
-    margin: 20px 0px 0px 20px;
-}
-
-textbox-prompt-colon {
-    expand: false;
-    str: ":";
-}
-
-entry {
-    padding: 6px;
-    margin: 20px 0px 0px 10px;
-    text-color: @fg-col;
-    background-color: @bg-col;
-}
-
-listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    margin: 10px 0px 0px 20px;
-    columns: 1;
-    lines: 5;
-    background-color: @bg-col;
-}
-
-element {
-    padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col;
-}
-
-element-icon {
-    size: 25px;
-}
-
-element selected {
-    background-color: @selected-col;
-    text-color: @bg-col;
-}
-
-mode-switcher {
-    spacing: 0;
-}
-
-button {
-    padding: 10px;
-    background-color: @bg-col-light;
-    text-color: @grey;
-    vertical-align: 0.5;
-    horizontal-align: 0.5;
-}
-
-button selected {
-    background-color: @bg-col;
-    text-color: @blue;
-}
-
----
-
-# ~/.config/dunst/dunstrc
-# Dunst notification daemon configuration
-
-[global]
-    monitor = 0
-    follow = mouse
-    geometry = "300x5-30+20"
-    indicate_hidden = yes
-    shrink = no
-    transparency = 10
-    notification_height = 0
-    separator_height = 2
-    padding = 8
-    horizontal_padding = 8
-    frame_width = 2
-    frame_color = "#3c414c"
-    separator_color = frame
-    sort = yes
-    idle_threshold = 120
-    font = Source Code Pro 10
-    line_height = 0
-    markup = full
-    format = "<b>%s</b>\n%b"
-    alignment = left
-    vertical_alignment = center
-    show_age_threshold = 60
-    word_wrap = yes
-    ellipsize = middle
-    ignore_newline = no
-    stack_duplicates = true
-    hide_duplicate_count = false
-    show_indicators = yes
-    icon_position = left
-    min_icon_size = 0
-    max_icon_size = 32
-    sticky_history = yes
-    history_length = 20
-    dmenu = /usr/bin/rofi -dmenu -p dunst:
-    browser = /usr/bin/firefox -new-tab
-    always_run_script = true
-    title = Dunst
-    class = Dunst
-    startup_notification = false
-    verbosity = mesg
-    corner_radius = 5
-    ignore_dbusclose = false
-    force_xinerama = false
-    mouse_left_click = close_current
-    mouse_middle_click = do_action, close_current
-    mouse_right_click = close_all
-
-[experimental]
-    per_monitor_dpi = false
-
-[shortcuts]
-    close = ctrl+space
-    close_all = ctrl+shift+space
-    history = ctrl+grave
-    context = ctrl+shift+period
-
-[urgency_low]
-    background = "#2f343f"
-    foreground = "#f3f4f5"
-    timeout = 10
-
-[urgency_normal]
-    background = "#2f343f"
-    foreground = "#f3f4f5"
-    timeout = 10
-
-[urgency_critical]
-    background = "#e53935"
-    foreground = "#f3f4f5"
-    frame_color = "#e53935"
-    timeout = 0
-
----
-
-# ~/.config/picom/picom.conf
-# Picom compositor configuration
-
-# Shadow
-shadow = true;
-shadow-radius = 7;
-shadow-offset-x = -7;
-shadow-offset-y = -7;
-shadow-opacity = 0.7;
-
-shadow-exclude = [
-  "name = 'Notification'",
-  "class_g = 'Conky'",
-  "class_g ?= 'Notify-osd'",
-  "class_g = 'Cairo-clock'",
-  "_GTK_FRAME_EXTENTS@:c"
-];
-
-# Fading
-fading = true;
-fade-in-step = 0.03;
-fade-out-step = 0.03;
-
-# Transparency/Opacity
-inactive-opacity = 0.95;
-frame-opacity = 0.9;
-inactive-opacity-override = false;
-
-opacity-rule = [
-  "100:class_g = 'firefox'",
-  "100:class_g = 'Chromium'",
-  "95:class_g = 'kitty'",
-  "95:class_g = 'Code'"
-];
-
-# Background-Blurring
-blur-background = false;
-
-# Other
-backend = "glx";
-vsync = true;
-mark-wmwin-focused = true;
-mark-ovredir-focused = true;
-detect-rounded-corners = true;
-detect-client-opacity = true;
-refresh-rate = 0;
-detect-transient = true;
-detect-client-leader = true;
-use-damage = true;
-
-# Window type settings
-wintypes:
-{
-  tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; full-shadow = false; };
-  dock = { shadow = false; }
-  dnd = { shadow = false; }
-  popup_menu = { opacity = 0.8; }
-  dropdown_menu = { opacity = 0.8; }
-};
-
----
-
-# Setup Instructions:
-
-# 1. Create the directories:
-mkdir -p ~/.config/i3
-mkdir -p ~/.config/i3status
-mkdir -p ~/.config/rofi
-mkdir -p ~/.config/dunst
-mkdir -p ~/.config/picom
-
-# 2. Install required packages (Arch Linux):
-sudo pacman -S i3-wm i3status i3lock rofi dunst picom kitty nautilus brightnessctl maim xss-lock nm-applet
-
-# 3. Optional: Install additional fonts
-sudo pacman -S ttf-sourcecodepro-nerd
-
-# 4. Copy the configuration files to their respective locations as shown above
-
-# 5. To start i3, add this to your display manager or .xinitrc:
-echo "exec i3" >> ~/.xinitrc
-
-# 6. Restart your session or run: startx

@@ -84,8 +84,8 @@ format = '[ [($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
 added_style = "fg:crust bg:yellow"
 deleted_style = "fg:crust bg:yellow"
 format = "[+$added]($added_style)[-$deleted ]($deleted_style)"
-
 disabled = false
+
 [nodejs]
 symbol = ""
 style = "bg:green"
@@ -166,7 +166,7 @@ style = "fg:crust bg:lavender"
 format = "[ $duration ]($style)"
 disabled = false
 show_notifications = true
-min_time_to_notify = 45000
+min_time_to_notify = 20000
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

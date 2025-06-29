@@ -104,7 +104,12 @@ if command -v fzf &> /dev/null; then
     export FZF_ALT_C_OPTS="--preview 'eza -l --no-user --no-permissions --icons=always --color=always {}' $FZF_VIM_KEYS"
 
     export FZF_CTRL_R_OPTS="--sort --reverse --preview 'echo {}' $FZF_VIM_KEYS"
-    export FZF_DEFAULT_OPTS=$FZF_VIM_KEYS
+    export FZF_DEFAULT_OPTS="$FZF_VIM_KEYS \
+        --color=spinner:#F5E0DC,hl:#F38BA8 \
+        --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+        --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+        --color=selected-bg:#45475A \
+        --color=border:#313244,label:#CDD6F4"
 fi
 
 # Enable starship.
